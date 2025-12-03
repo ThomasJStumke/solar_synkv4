@@ -1,0 +1,42 @@
+name: "SolarSynkV3"
+description: "Home Assistant add-on for syncing solar/inverter data from SynSynk.net"
+version: "4.0.1"
+slug: "solar_synkv3"
+init: false
+
+arch:
+  - amd64
+
+url: "https://github.com/ThomasJStumke/solar_synkv4"
+homeassistant_api: true
+
+# Pin a stable base image; prevents Supervisor falling back to :latest (Alpine v3.22)
+build_from:
+  amd64: ghcr.io/home-assistant/amd64-base:3.18
+
+startup: services
+boot: auto
+
+options:
+  sunsynk_user: ""
+  sunsynk_pass: ""
+  sunsynk_serial: ""
+  Home_Assistant_IP: "192.168.0.250"
+  Home_Assistant_PORT: 8123
+  HA_LongLiveToken: ""
+  Refresh_rate: 300
+  Enable_HTTPS: false
+  API_Server: "api.sunsynk.net"
+  use_internal_api: false
+
+schema:
+  sunsynk_user: str
+  sunsynk_pass: password
+  sunsynk_serial: str
+  use_internal_api: bool
+  Home_Assistant_IP: str?
+  Home_Assistant_PORT: int?
+  HA_LongLiveToken: password?
+  Refresh_rate: int
+  Enable_HTTPS: bool
+  API_Server: list(api.sunsynk.net|pv.inteless.com)
